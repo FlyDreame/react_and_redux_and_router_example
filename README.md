@@ -28,7 +28,7 @@ npm install -g webpack
 ```bash
 npm run server
 ```  
-等待编译完成(客户端js会持续编译), 显示 <code>webpack: bundle is now VALID.</code>即表示编译完成  
+等待编译完成.  
   
 二. 运行
 新开控制台窗口,运行下面命令
@@ -72,6 +72,17 @@ npm start
 打包了感觉整个文件很大, 很乱, 没有找到合适的教程, 希望有人指点  
 
 二. __dirname
+<font color=#DC143C >(已解决,在webpack配置文件上添加以下配置即可:)</font>
+```
+module.exports = {
+	node: {
+		__filename: true,
+		__dirname: true
+	}
+        ...
+};
+```  
+<font color=#DC143C >(现在已经正常使用了 ejs 视图模板引擎 和 静态文件 了)</font>
 这也是服务端使用webpack 打包遗留的问题, __dirname在服务器很常使用, 例如在 express 中,
 <pre>app.use('/public',express.static(__dirname + '/public'));</pre>
 用来设置静态文件路由  

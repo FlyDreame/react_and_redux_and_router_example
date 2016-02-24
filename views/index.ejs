@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <link href="/css/global/normalize.css" type="text/css" rel="stylesheet">
-  <link href="/css/global/typography.css" type="text/css" rel="stylesheet">
-  <link href="/css/global/buttons.css" type="text/css" rel="stylesheet">
-  <link href="/css/global/grid.css" type="text/css" rel="stylesheet">
-  <link href="/css/css.css" type="text/css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/public/css/global/normalize.css" type="text/css" rel="stylesheet">
+    <link href="/public/css/global/typography.css" type="text/css" rel="stylesheet">
+    <link href="/public/css/global/buttons.css" type="text/css" rel="stylesheet">
+    <link href="/public/css/global/grid.css" type="text/css" rel="stylesheet">
+    <link href="/public/css/css.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 <div id="root">
-  <%= __html__ %>
+    <div>
+        <%- __html__ %>
+    </div>
 </div>
 <script>
-  window.__INITIAL_STATE__= <%= __state__ %>;
+    window.__INITIAL_STATE__ = <%- __state__ %>;
 </script>
-<script type="text/javascript" src="http://localhost:3009/bundle.js"></script>
+<script type="text/javascript" src="/public/bundle.js"></script>
 </body>
 </html>

@@ -12,6 +12,11 @@ fs.readdirSync('node_modules')
     });
 
 module.exports = {
+  node:{
+    console:true,
+    __filename:true,
+    __dirname:true
+  },
   target:'node',
   devtool: false,
   entry: {

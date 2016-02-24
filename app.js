@@ -10,8 +10,11 @@ const session = require('express-session');
 const ReactRouter = require('./routes/server');
 const users = require('./routes/users');
 
-
 const app = express();
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+
+app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -43,10 +46,10 @@ app.use(session({
 
 // 通常用于加载静态资源
 //console.log(path.resolve('public'));
-//console.log(__filename);
-//console.log(__dirname);
+//console.log('__filename:'+ path.resolve(__filename));
+//console.log('__dirname:'+ path.resolve(__dirname));
 //console.log(process.cwd());
-//app.use('/public',express.static(__dirname + '/public'));
+app.use('/public',express.static(path.join(__dirname, 'public')));
 
 app.use('/users', users);
 app.use('/', ReactRouter);

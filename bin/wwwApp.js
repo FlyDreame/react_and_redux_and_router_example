@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	//#!/usr/bin/env node
+	/* WEBPACK VAR INJECTION */(function(__dirname, __filename) {//#!/usr/bin/env node
 
 	/**
 	 * Module dependencies.
@@ -70,6 +70,9 @@
 	/**
 	 * Listen on provided port, on all network interfaces.
 	 */
+
+	console.log('www__dirname:'+ __dirname);
+	console.log('www__filename:'+ __filename);
 
 	server.listen(port);
 	server.on('error', onError);
@@ -135,12 +138,13 @@
 	  debug('Listening on ' + bind);
 	}
 
+	/* WEBPACK VAR INJECTION */}.call(exports, "bin", "bin/www"))
 
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 
 	var express = __webpack_require__(2);
 	var path = __webpack_require__(3);
@@ -154,6 +158,10 @@
 	var users = __webpack_require__(183);
 
 	var app = express();
+	// view engine setup
+	app.set('views', path.join(__dirname, 'views'));
+
+	app.set('view engine', 'ejs');
 
 	app.use(logger('dev'));
 	app.use(bodyParser.json());
@@ -184,10 +192,10 @@
 
 	// 通常用于加载静态资源
 	//console.log(path.resolve('public'));
-	//console.log(__filename);
-	//console.log(__dirname);
+	//console.log('__filename:'+ path.resolve(__filename));
+	//console.log('__dirname:'+ path.resolve(__dirname));
 	//console.log(process.cwd());
-	//app.use('/public',express.static(__dirname + '/public'));
+	app.use('/public', express.static(path.join(__dirname, 'public')));
 
 	app.use('/users', users);
 	app.use('/', ReactRouter);
@@ -224,6 +232,7 @@
 	//});
 
 	module.exports = app;
+	/* WEBPACK VAR INJECTION */}.call(exports, ""))
 
 /***/ },
 /* 2 */
@@ -298,9 +307,27 @@
 	var express = __webpack_require__(2);
 	var router = express.Router();
 
-	function renderFullPage(html, initialState) {
-	    return '\n    <!DOCTYPE html>\n    <html lang="en">\n    <head>\n      <meta charset="UTF-8">\n    </head>\n    <body>\n      <div id="root">\n        <div>\n          ' + html + '\n        </div>\n      </div>\n      <script>\n        window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n      </script>\n      <script src="http://localhost:3009/bundle.js"></script>\n    </body>\n    </html>\n  ';
-	}
+	//function renderFullPage(html, initialState) {
+	//    return `
+	//    <!DOCTYPE html>
+	//    <html lang="en">
+	//    <head>
+	//      <meta charset="UTF-8">
+	//    </head>
+	//    <body>
+	//      <div id="root">
+	//        <div>
+	//          ${html}
+	//        </div>
+	//      </div>
+	//      <script>
+	//        window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
+	//      </script>
+	//      <script src="http://localhost:3009/bundle.js"></script>
+	//    </body>
+	//    </html>
+	//  `;
+	//}
 
 	router.get('/*', function (req, res, next) {
 
@@ -332,7 +359,11 @@
 	                    { store: store },
 	                    _react2.default.createElement(_reactRouter.RouterContext, renderProps)
 	                ));
-	                res.end(renderFullPage(html, store.getState()));
+	                //res.end(renderFullPage(html, store.getState()));
+	                res.render('index', {
+	                    __html__: html,
+	                    __state__: JSON.stringify(store.getState())
+	                });
 	            });
 	        } else {
 	            res.status(404).end('Not found');

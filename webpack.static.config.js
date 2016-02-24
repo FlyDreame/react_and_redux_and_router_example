@@ -1,6 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
-var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
+//var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
 
 module.exports = {
   devtool: false,
@@ -8,7 +8,7 @@ module.exports = {
    'bundle': __dirname+'/views/react/index.js'
   },
   output: {
-    path: __dirname,
+    path: __dirname + '/public',
     filename: '[name].js'
   },
   resolve: {
@@ -22,7 +22,7 @@ module.exports = {
     //    warnings: false
     //  }
     //}),
-    commonsPlugin,
+    //commonsPlugin,
     new webpack.NoErrorsPlugin()
   ],
   module: {

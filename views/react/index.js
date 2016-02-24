@@ -1,7 +1,7 @@
 /**
  * Created by zjy on 16-2-19.
  */
-//import React from 'react';
+import React from 'react';
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { Router, browserHistory } from 'react-router'

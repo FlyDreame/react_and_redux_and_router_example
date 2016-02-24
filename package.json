@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/wwwApp",
     "views": "node ./views/react/server.js",
-    "server": "webpack --config webpack.server.config.js;node ./views/react/server.js"
+    "server": "webpack --config webpack.server.config.js;webpack --config webpack.static.config.js"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
