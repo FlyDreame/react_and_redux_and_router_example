@@ -25,12 +25,12 @@ export default class Login extends React.Component {
                 <form>
                     <label>
                         帐号:
-                        <input type="text" name="username" id="username"/>
+                        <input type="text" name="username" id="username" value="zjy"/>zjy
                     </label>
                     <br/>
                     <label>
                         密码:
-                        <input type="password" name="password" id="password"/>
+                        <input type="password" name="password" id="password" value="111111"/>111111
                     </label>
                     <br/>
                     <input type="submit" value="登录" onClick={ e => this.handleClick(e) }/>
