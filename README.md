@@ -71,7 +71,10 @@ npm start
 如果不打包, 服务端渲染就会遇到很多问题 ES6语法(例如 import ) 或者 (jsx) 的某些语句无法实现,  
 打包了感觉整个文件很大, 很乱, 没有找到合适的教程, 希望有人指点  
 
-二. __dirname
+二. __dirname    
+
+****
+感谢react中文社区的 [oneapm](http://react-china.org/users/oneapm/activity)
 <font color=#DC143C >(已解决,在webpack配置文件上添加以下配置即可:)</font>
 ```
 module.exports = {
@@ -82,7 +85,9 @@ module.exports = {
         ...
 };
 ```  
-<font color=#DC143C >(现在已经正常使用了 ejs 视图模板引擎 和 静态文件 了)</font>
+<font color=#DC143C >(现在已经正常使用了 ejs 视图模板引擎 和 静态文件 了)</font>  
+
+***
 这也是服务端使用webpack 打包遗留的问题, __dirname在服务器很常使用, 例如在 express 中,
 <pre>app.use('/public',express.static(__dirname + '/public'));</pre>
 用来设置静态文件路由  
@@ -99,7 +104,11 @@ console.log(__filename);// 等于'/index.js'
 后续有解决方法也会更新  
 
 三. 文件过大的问题  
+
+****
 <font color=#DC143C >(已解决, 原来的配置文件添加了devtool: 'eval', 使得所有注释都无法删除,删掉降到了296k)</font>
+
+****
 静态js资源|打包丑化完成后,足足有1M大小,不得了啊, 到底是什么原因: 引入文件过多? webpack配置有问题 ? 有什么解决方案
 
 ## 后续  
