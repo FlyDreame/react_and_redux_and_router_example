@@ -131,7 +131,7 @@ plugins:[
       }
     })
  ]
-```   
+```
 然后在执行webpack的时候加上NODE_ENV环境变量 
 ```bash
 NODE_ENV=production webpack --config webpack.static.config.js
@@ -157,7 +157,7 @@ bundle.js  222 kB       0  [emitted]  bundle
     + 252 hidden modules
 ```
 又节省了50多k, 加起来足足缩小了70k.
-虽然明明我的配置了已经有了压缩插件, 却还是需要用<code> --optimize-minimize</code>来配合DefinePlugin 去压缩, 确实很神奇呢  
+虽然明明我的配置里已经有了压缩插件, 却还是需要用<code> --optimize-minimize</code>来配合DefinePlugin 去压缩, 确实很神奇呢  
 
 ****
 
