@@ -16,12 +16,18 @@ module.exports = {
   },
 
   plugins: [
-    //new webpack.optimize.UglifyJsPlugin({
-    //  compress: {
-    //    //supresses warnings, usually from module minification
-    //    warnings: false
-    //  }
-    //}),
+      //新加环境变量替换
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        //supresses warnings, usually from module minification
+        warnings: false
+      }
+    }),
     //commonsPlugin,
     new webpack.NoErrorsPlugin()
   ],

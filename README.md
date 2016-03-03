@@ -66,12 +66,12 @@ npm start
 -- webpack.static.config.json (webpack 客户端打包配置文件 )  
 
 ## 问题  
-一. 服务端打包
+### 一. 服务端打包
 心里一直觉得毛毛的, 服务端到底需不需要webpack打包,应该如何打包.  
 如果不打包, 服务端渲染就会遇到很多问题 ES6语法(例如 import ) 或者 (jsx) 的某些语句无法实现,  
 打包了感觉整个文件很大, 很乱, 没有找到合适的教程, 希望有人指点  
 
-二. __dirname    
+### 二. __dirname    
 
 ****
 感谢react中文社区的 [oneapm](http://react-china.org/users/oneapm/activity)
@@ -103,12 +103,62 @@ console.log(__filename);// 等于'/index.js'
 不知是不是我哪里造成了错误,或者有什么解决方案  
 后续有解决方法也会更新  
 
-三. 文件过大的问题  
-
+### 三. 文件过大的问题  
+#### 优化一  
 ****
 <font color=#DC143C >(已解决, 原来的配置文件添加了devtool: 'eval', 使得所有注释都无法删除,删掉降到了296k)</font>
+结果
+```bash
+Time: 6312ms
+    Asset    Size  Chunks             Chunk Names
+bundle.js  293 kB       0  [emitted]  bundle
+    + 257 hidden modules
+```
+****
+#### 优化二  
+****
+使用了 @wyvernnot 的 [webpack_performance](https://github.com/wyvernnot/webpack_performance/tree/master/compress-example), 一篇webpack优化的文章,
+利用 DefinePlugin 消除环境监测的代码 <code>if (process.env.NODE_ENV !== 'production')</code> 之类的.
+在plugins 加上相应配置,如下:
+```js
+plugins:[
+    ...
+    new webpack.DefinePlugin({
+      'process.env': {
+          'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      }
+    })
+ ]
+```   
+然后在执行webpack的时候加上NODE_ENV环境变量 
+```bash
+NODE_ENV=production webpack --config webpack.static.config.js
+```
+结果
+```bash
+Time: 6738ms
+    Asset    Size  Chunks             Chunk Names
+bundle.js  276 kB       0  [emitted]  bundle
+    + 256 hidden modules
+```
+这个时候发现减少了 10多k (一分钱也是肉 -_-)  
+然而, 还有更加神奇的事  
+运行webpack 的时候加上<code>--optimize-minimize</code>(就是压缩指令)
+```
+NODE_ENV=production webpack --config webpack.static.config.js --optimize-minimize
+```
+结果
+```bash
+Time: 9200ms
+    Asset    Size  Chunks             Chunk Names
+bundle.js  222 kB       0  [emitted]  bundle
+    + 252 hidden modules
+```
+又节省了50多k, 加起来足足缩小了70k.
+虽然明明我的配置了已经有了压缩插件, 却还是需要用<code> --optimize-minimize</code>来配合DefinePlugin 去压缩, 确实很神奇呢  
 
 ****
+
 静态js资源|打包丑化完成后,足足有1M大小,不得了啊, 到底是什么原因: 引入文件过多? webpack配置有问题 ? 有什么解决方案
 
 ## 后续  
