@@ -88,6 +88,8 @@ module.exports = {
 <font color=#DC143C >(现在已经正常使用了 ejs 视图模板引擎 和 静态文件 了)</font>  
 
 ***
+
+(原问题)
 这也是服务端使用webpack 打包遗留的问题, __dirname在服务器很常使用, 例如在 express 中,
 <pre>app.use('/public',express.static(__dirname + '/public'));</pre>
 用来设置静态文件路由  
@@ -159,6 +161,7 @@ bundle.js  222 kB       0  [emitted]  bundle
 
 ****
 
+(原问题)
 静态js资源|打包丑化完成后,足足有1M大小,不得了啊, 到底是什么原因: 引入文件过多? webpack配置有问题 ? 有什么解决方案
 
 ## 后续  
